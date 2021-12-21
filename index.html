@@ -9,26 +9,50 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9cb4d2da64f18642fcdeb9a13d37c296"></script>
 </head>
 <body>
-  <div id="contain" style="width:30vw;height:100vh;margin:0;margin-left:2vw;position:absolute;left:0;">
-    <!-- 추가 -->
+  <div id="contain" style="width:30vw;height:98vh;margin:0;margin-left:2vw;margin-top:2vh;position:absolute;left:0;">
+    <div class="searchwrap">
+      <div class="search">
+        <input type="text" class="searchTerm" placeholder="'닥터비건' 어떠세요?">
+        <button type="submit" class="searchButton">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </div>
     <h1>Tags</h1>
     <h2>지역</h2>
-    <div>
-      <button onclick="panToNowon()">노원구</button>
-      <button onclick="panToGangnam()">강남구</button>
-      <button onclick="panToSeocho()">서초구</button>
-      <button onclick="panToMapo()">마포구</button>
-      <button onclick="panToYongsan()">용산구</button>
+    <form>
+      <select name="region" onchange="panTo(this.value)">
+        <option value="Nowon">노원구</option>
+        <option value="Gangnam">강남구</option>
+        <option value="Seocho">서초구</option>
+        <option value="Mapo">마포구</option>
+        <option value="Yongsan">용산구</option>
+      </select>
+    </form>
+    <div class="kind">
+      <h2>친환경푸드</h2>
+      <ul class="tags">
+        <li><a href="#" onclick="findTag('비건')" class="tag">비건</a></li>
+        <li><a href="#" onclick="findTag('락토')" class="tag">락토</a></li>
+        <li><a href="#" onclick="findTag('오보')" class="tag">오보</a></li>
+        <li><a href="#" onclick="findTag('락토오보')" class="tag">락토오보</a></li>
+        <li><a href="#" onclick="findTag('페스코')" class="tag">페스코</a></li>
+      </ul>
+      <h2>업사이클링</h2>
+      <ul class="tags">
+        <li><a href="#" class="tag">의류</a></li>
+        <li><a href="#" class="tag">가구</a></li>
+        <li><a href="#" class="tag">생활용품</a></li>
+        <li><a href="#" class="tag">신발</a></li>
+      </ul>
+      <h2>오가닉뷰티</h2>
+      <ul class="tags">
+        <li><a href="#" class="tag">화장품</a></li>
+        <li><a href="#" class="tag">향수</a></li>
+      </ul>
     </div>
-    <!--  -->
-    <h2>비건</h2>
-    <ul class="tags">
-      <li><a href="#" class="tag">비건</a></li>
-      <li><a href="#" class="tag">락토</a></li>
-      <li><a href="#" class="tag">오보</a></li>
-      <li><a href="#" class="tag">락토오보</a></li>
-      <li><a href="#" class="tag">페스코</a></li>
-    </ul>
+    <button onclick="deleteAll()">핀초기화</button>
+    <button onclick="showAll()">핀생성</button>
   </div>
 <!-- 지도를 표시할 div 입니다 -->
 <div id="map" style="width:70vw;height:100vh;margin:0;position:absolute;right:0"></div>
