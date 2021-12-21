@@ -73,6 +73,14 @@
    border-left-color: crimson;
 }
 
+.tag:focus{
+  background-color:crimson;
+  color:white;
+}
+.tag:focus::after{
+  border-left-color:crimson;
+}
+
 
 /* search ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 .search {
