@@ -3,7 +3,7 @@
 .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
 .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-.info .close {position: absolute;top: 5px;right: 10px;color: #888;width: 25px;height: 25px;background: url('x.png');background-size:cover;}
+.info .close {position: absolute;top: 5px;right: 10px;color: #888;width: 25px;height: 25px;background: url('https://i.ibb.co/vmG5Wtn/x.png');background-size:cover;}
 .info .close:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}
 .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
