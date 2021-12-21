@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>지도</title>
+    <title>localhost지도</title>
     <link rel="stylesheet" href="custom.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic'>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9cb4d2da64f18642fcdeb9a13d37c296"></script>
 </head>
 <body>
-  <div id="contain" style="width:30vw;height:98vh;margin:0;margin-left:2vw;margin-top:2vh;position:absolute;left:0;">
+  <div id="contain" style="width:25vw;height:98vh;margin:0;margin-left:2vw;margin-top:2vh;position:absolute;left:0;">
     <div class="searchwrap">
       <div class="search">
         <input type="text" class="searchTerm" placeholder="'닥터비건' 어떠세요?">
@@ -30,25 +30,31 @@
       </select>
     </form>
     <div class="kind">
-      <h2>친환경푸드</h2>
+      <h2>친환경식당</h2>
       <ul class="tags">
-        <li><a href="#" onclick="findTag('비건')" class="tag">비건</a></li>
+        <li><a href="#" onclick="changeMarker('restaurant');" class="tag">비건</a></li>
         <li><a href="#" onclick="findTag('락토')" class="tag">락토</a></li>
         <li><a href="#" onclick="findTag('오보')" class="tag">오보</a></li>
         <li><a href="#" onclick="findTag('락토오보')" class="tag">락토오보</a></li>
         <li><a href="#" onclick="findTag('페스코')" class="tag">페스코</a></li>
+        <li><a href="#" onclick="findTag('폴로')" class="tag">폴로</a></li>
       </ul>
       <h2>업사이클링</h2>
       <ul class="tags">
-        <li><a href="#" class="tag">의류</a></li>
-        <li><a href="#" class="tag">가구</a></li>
-        <li><a href="#" class="tag">생활용품</a></li>
-        <li><a href="#" class="tag">신발</a></li>
+        <li><a href="#" onclick="changeMarker('upcycling')" class="tag">업사이클링</a></li>
+        <li><a href="#" onclick="findTag('의류')" class="tag">의류</a></li>
+        <li><a href="#" onclick="findTag('가방')" class="tag">가방</a></li>
+        <li><a href="#" onclick="findTag('생활용품')" class="tag">생활용품</a></li>
       </ul>
-      <h2>오가닉뷰티</h2>
+      <h2>비건뷰티</h2>
       <ul class="tags">
-        <li><a href="#" class="tag">화장품</a></li>
-        <li><a href="#" class="tag">향수</a></li>
+        <li><a href="#" onclick="changeMarker('veganBeauty')" class="tag">비건뷰티</a></li>
+        <li><a href="#" onclick="findTag('화장품')" class="tag">화장품</a></li>
+        <li><a href="#" onclick="findTag('향수')" class="tag">향수</a></li>
+      </ul>
+      <h2>제로웨이스트</h2>
+      <ul class="tags">
+        <li><a href="#" onclick="changeMarker('zeroWaste')" class="tag">제로웨이스트</a></li>
       </ul>
     </div>
     <button onclick="deleteAll()">핀초기화</button>
