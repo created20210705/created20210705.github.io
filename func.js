@@ -1,6 +1,6 @@
 var mapContainer = document.getElementById('map'),
     mapOption = {
-        center: new kakao.maps.LatLng(37.63003404375192, 127.07633653685478),
+        center: new kakao.maps.LatLng(37.498065867898255, 127.02760560978642),
         level: 4 // 확대 레벨 (1~14 클수록 축소됨)
     };
 var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -1099,12 +1099,11 @@ var zeroWaste = [
   }
 ];
 
-
+var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';
 var restaurantMarkers = [],
     upcyclingMarkers = [],
     veganBeautyMarkers = [],
     zeroWasteMarkers = [];
-
 var restaurantOverlays = [],
     upcyclingOverlays = [],
     veganBeautyOverlays = [],
@@ -1205,20 +1204,41 @@ function createContent(data, overlay) {
   return content;
 } //content 생성 함수
 
+function createMarkerImage(src, size, options) {
+  var markerImage = new kakao.maps.MarkerImage(src, size, options);
+  return markerImage;
+}
 
-//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-function createRestaurantMarkers() {
+function createMarker(position, image) {
   var marker = new kakao.maps.Marker({
     map: map,
-    position : restaurant[i].latlng
+    position: position.latlng,
+    image: image
   });
-  restaurantMarkers.push(marker);
+  return marker;
+}
 
+function createOverlay(marker) {
   var overlay = new kakao.maps.CustomOverlay({
     map: null,
     position: marker.getPosition()
   });
+  return overlay;
+}
+
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+function createRestaurantMarkers() {
+  var imageSize = new kakao.maps.Size(22, 26),
+      imageOptions = {
+        spriteOrigin: new kakao.maps.Point(10, 0),
+        spriteSize: new kakao.maps.Size(36, 98)
+      };
+  var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),
+      marker = createMarker(restaurant[i], markerImage);
+  restaurantMarkers.push(marker);
+
+  var overlay = createOverlay(marker);
   var content = createContent(restaurant[i], overlay);
   overlay.setContent(content);
 
@@ -1236,18 +1256,23 @@ function setRestaurantMarkers(map) {
     restaurantMarkers[i].setMap(map);
   }
 }
+function setRestaurantOverlays(map) {
+  for (var i = 0; i < restaurant.length; i++) {
+    restaurantOverlays[i].setMap(map);
+  }
+}
 
 function createUpcyclingMarkers() {
-  var marker = new kakao.maps.Marker({
-    map: map,
-    position : upcycling[i].latlng
-  });
+  var imageSize = new kakao.maps.Size(22, 26),
+      imageOptions = {
+        spriteOrigin: new kakao.maps.Point(10, 36),
+        spriteSize: new kakao.maps.Size(36, 98)
+      };
+  var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),
+      marker = createMarker(upcycling[i], markerImage);
   upcyclingMarkers.push(marker);
 
-  var overlay = new kakao.maps.CustomOverlay({
-    map: null,
-    position: marker.getPosition()
-  });
+  var overlay = createOverlay(marker);
   var content = createContent(upcycling[i], overlay);
   overlay.setContent(content);
 
@@ -1265,18 +1290,23 @@ function setUpcyclingMarkers(map) {
     upcyclingMarkers[i].setMap(map);
   }
 }
+function setUpcyclingOverlays(map) {
+  for (var i = 0; i < upcycling.length; i++) {
+    upcyclingOverlays[i].setMap(map);
+  }
+}
 
 function createVeganBeautyMarkers() {
-  var marker = new kakao.maps.Marker({
-    map: map,
-    position : veganBeauty[i].latlng
-  });
+  var imageSize = new kakao.maps.Size(22, 26),
+      imageOptions = {
+        spriteOrigin: new kakao.maps.Point(10, 72),
+        spriteSize: new kakao.maps.Size(36, 98)
+      };
+  var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),
+      marker = createMarker(veganBeauty[i], markerImage);
   veganBeautyMarkers.push(marker);
 
-  var overlay = new kakao.maps.CustomOverlay({
-    map: null,
-    position: marker.getPosition()
-  });
+  var overlay = createOverlay(marker);
   var content = createContent(veganBeauty[i], overlay);
   overlay.setContent(content);
 
@@ -1294,18 +1324,22 @@ function setVeganBeautyMarkers(map) {
     veganBeautyMarkers[i].setMap(map);
   }
 }
+function setVeganBeautyOverlays(map) {
+  for (var i = 0; i < veganBeauty.length; i++) {
+    veganBeautyOverlays[i].setMap(map);
+  }
+}
 
 function createZeroWasteMarkers() {
-  var marker = new kakao.maps.Marker({
-    map: map,
-    position : zeroWaste[i].latlng
-  });
+  var imgSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+      imgSize = new kakao.maps.Size(64,69),
+      imageOption = {offset: new kakao.maps.Point(27, 69)};
+  var markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize, imageOption),
+      //markerPosition = new kakao.maps.LatLng(37.54699, 127.09598);
+      marker = createMarker(zeroWaste[i], markerImage);
   zeroWasteMarkers.push(marker);
 
-  var overlay = new kakao.maps.CustomOverlay({
-    map: null,
-    position: marker.getPosition()
-  });
+  var overlay = createOverlay(marker);
   var content = createContent(zeroWaste[i], overlay);
   overlay.setContent(content);
 
@@ -1321,6 +1355,11 @@ function createZeroWasteMarkers() {
 function setZeroWasteMarkers(map) {
   for (var i = 0; i < zeroWaste.length; i++) {
     zeroWasteMarkers[i].setMap(map);
+  }
+}
+function setZeroWasteOverlays(map) {
+  for (var i = 0; i < zeroWaste.length; i++) {
+    zeroWasteOverlays[i].setMap(map);
   }
 }
 
@@ -1346,6 +1385,10 @@ function changeMarker(type) {
     setVeganBeautyMarkers(null);
     setZeroWasteMarkers(map);
   }
+  setRestaurantOverlays(null);
+  setUpcyclingOverlays(null);
+  setVeganBeautyOverlays(null);
+  setZeroWasteOverlays(null);
 }
 
 function panTo(a){
@@ -1383,6 +1426,12 @@ function findTag(keyWord){
         restaurantOverlays[i].setMap(null);
       }
     }
+    setUpcyclingMarkers(null);
+    setUpcyclingOverlays(null);
+    setVeganBeautyMarkers(null);
+    setVeganBeautyOverlays(null);
+    setZeroWasteMarkers(null);
+    setZeroWasteOverlays(null);
   } else if (keyWord === '의류' || keyWord === '가방' || keyWord === '생활용품') {
     for (var i = 0; i < upcycling.length; i++) {
       if (upcycling[i].tag1 == keyWord || upcycling[i].tag2 == keyWord) {
@@ -1393,6 +1442,12 @@ function findTag(keyWord){
         upcyclingOverlays[i].setMap(null);
       }
     }
+    setRestaurantMarkers(null);
+    setRestaurantOverlays(null);
+    setVeganBeautyMarkers(null);
+    setVeganBeautyOverlays(null);
+    setZeroWasteMarkers(null);
+    setZeroWasteOverlays(null);
   } else if (keyWord === '화장품' || keyWord === '향수') {
     for (var i = 0; i < veganBeauty.length; i++) {
       if (veganBeauty[i].tag1 == keyWord || veganBeauty[i].tag2 == keyWord) {
@@ -1403,5 +1458,11 @@ function findTag(keyWord){
         veganBeautyOverlays[i].setMap(null);
       }
     }
+    setRestaurantMarkers(null);
+    setRestaurantOverlays(null);
+    setUpcyclingMarkers(null);
+    setUpcyclingOverlays(null);
+    setZeroWasteMarkers(null);
+    setZeroWasteOverlays(null);
   }
 }
